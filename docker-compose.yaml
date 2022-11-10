@@ -4,7 +4,7 @@ services:
     platform: linux/x86_64
     restart: always
     networks:
-      - lan
+      - krubapigateway_lan
     env_file:
       - ".env"  
     environment:
@@ -25,7 +25,7 @@ services:
     volumes:
       - my-db:/var/lib/mysql
 # Names our volume
-  service:
+  auctionitemservice:
     build: ./
     container_name: BidKrubAuctionItemService
     env_file:
@@ -37,7 +37,7 @@ services:
     expose:
       - ${SERVICE_PORT}
     networks:
-      - lan
+      - krubapigateway_lan
     restart: "unless-stopped"
 
 
@@ -45,5 +45,5 @@ volumes:
   my-db:
 
 networks:
-  lan:
-    driver: bridge
+  krubapigateway_lan:
+    external: true
